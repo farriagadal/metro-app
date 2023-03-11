@@ -11,8 +11,8 @@ export default {
 }
 </script>
 
-<!-- <style lang="scss" scoped>
+<style lang="scss" scoped>
 .container {
   background-color: #333;
 }
-</style> -->
+</style>
