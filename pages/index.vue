@@ -2,65 +2,37 @@
   <div>
     <h1>Lista de items</h1>
     <FiltersBar />
-    <!-- <ul>
-      <li v-for="elemento in elementosFiltrados" :key="elemento.id">
-        {{ elemento.nombre }}
+    <ul>
+      <li v-for="(item, index) in items" :key="index">
+        {{ item.CODIGO }}
       </li>
-    </ul> -->
+    </ul>
+    <button @click="count++">
+      Add 1
+    </button>
+    {{ count }}
   </div>
 </template>
 
 <script>
-// import { getMetroLines } from '@/services/metro.service.js'
-import axios from 'axios'
-// import FormData from 'form-data'
-// const axios = () => import('axios')
+import { getMetroLines } from '@/services/metro.service.js'
 
 export default {
   name: 'IndexPage',
-  // components: {
-  //   Filtros
-  // },
-  // async asyncData ({ $axios }) {
-  //   let items = []
-  //   try {
-  //     // const data = new FormData()
-  //     // data.append('resource_id', '3d54e961-d81b-4507-aeee-7a433e00a9bf')
-  //     const response = await getMetroLines()
-  //     console.log('response', response)
-  //     items = response.data.result.records
-  //   } catch (error) {
-  //     console.log('error', error)
-  //   }
-  //   return {
-  //     items
-  //   }
-  // },
   data () {
     return {
-      filter: [],
+      count: 0,
       items: []
     }
   },
-  // computed: {
-  //   elementosFiltrados () {
-  //     return this.items.filter(elemento => elemento.tipo === this.filtro)
-  //   }
-  // },
-  mounted: () => {
-    // this.$nuxt.$loading.start() // mostrar indicador de carga
+  mounted () {
+    console.log('items', this.items)
     try {
-      const data = new FormData()
-      data.append('resource_id', '3d54e961-d81b-4507-aeee-7a433e00a9bf')
-      // axios.post('https://datos.gob.cl/api/3/action/datastore_search', { resource_id: '3d54e961-d81b-4507-aeee-7a433e00a9bf' }).then((response) => {
-      axios.post('https://datos.gob.cl/api/3/action/datastore_search', data, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-          'Access-Control-Allow-Origin': '*'
-        }
-      }).then((response) => {
-        console.log('response', response)
+      getMetroLines().then((response) => {
+        // // console.log('response', response.result.records)
+        // console.log('items', this.items)
+        this.items = response.result.records
+        console.log('items', this.items)
       }).catch((error) => {
         console.log('error', error)
       })
@@ -68,20 +40,5 @@ export default {
       console.log('error', error)
     }
   }
-  // methods: {
-  //   changeFilter (newFilter) {
-  //     this.filter = newFilter
-  //     // this.$nuxt.$loading.start() // mostrar indicador de carga
-  //     // getMetroLines()
-  //     //   .then((response) => {
-  //     //     this.items = response.data
-  //     //     this.$nuxt.$loading.finish() // ocultar indicador de carga
-  //     //   })
-  //     //   .catch((error) => {
-  //     //     console.error(error)
-  //     //     this.$nuxt.$loading.finish() // ocultar indicador de carga
-  //     //   })
-  //   }
-  // }
 }
 </script>
