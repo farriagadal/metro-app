@@ -25,3 +25,13 @@ export default {
   name: 'Navbar'
 }
 </script>
+
+<style lang="scss">
+nav {
+  background-color: #888;
+  padding: 20px 0;
+  ul {
+    margin: 0;
+  }
+}
+</style>
