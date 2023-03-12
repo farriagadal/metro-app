@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { getMetroLines } from '@/services/metro.service.js'
-// import axios from 'axios'
+// import { getMetroLines } from '@/services/metro.service.js'
+import axios from 'axios'
 // import FormData from 'form-data'
 // const axios = () => import('axios')
 
@@ -49,16 +49,24 @@ export default {
   // },
   mounted: () => {
     // this.$nuxt.$loading.start() // mostrar indicador de carga
-    getMetroLines()
-      .then((response) => {
-        this.items = response.data.result.records
-        console.log('items', this.items)
-        // this.$nuxt.$loading.finish() // ocultar indicador de carga
+    try {
+      const data = new FormData()
+      data.append('resource_id', '3d54e961-d81b-4507-aeee-7a433e00a9bf')
+      // axios.post('https://datos.gob.cl/api/3/action/datastore_search', { resource_id: '3d54e961-d81b-4507-aeee-7a433e00a9bf' }).then((response) => {
+      axios.post('https://datos.gob.cl/api/3/action/datastore_search', data, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          'Access-Control-Allow-Origin': '*'
+        }
+      }).then((response) => {
+        console.log('response', response)
+      }).catch((error) => {
+        console.log('error', error)
       })
-      .catch((error) => {
-        console.error(error)
-        // this.$nuxt.$loading.finish() // ocultar indicador de carga
-      })
+    } catch (error) {
+      console.log('error', error)
+    }
   }
   // methods: {
   //   changeFilter (newFilter) {
