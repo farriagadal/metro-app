@@ -66,8 +66,8 @@ export default {
     }
   }
 
-  // .page-item {
-  //   margin-right: 8px;
-  // }
+  .page-item {
+    display: flex;
+  }
 }
 </style>
