@@ -2,12 +2,26 @@
   <div>
     <Navbar />
     <div class="container">
-      <!-- <FiltersBar />
-      <ChangeView /> -->
-      <Pagination
-        :total-pages="parseInt(Math.ceil(totalItems / itemsPerPage))"
-        @page-changed="pageChanged"
-      />
+      <div class="bar">
+        <FilterSelect
+          name="Comunas"
+          :options="['Todas', ...municipalities]"
+          :selected="municipality"
+          @change="municipalityChanged"
+        />
+        <FilterSelect
+          name="Lineas"
+          :options="['Todas', ...lines]"
+          :selected="line"
+          @change="lineChanged"
+        />
+        <Pagination
+          class="pagination"
+          :total-pages="parseInt(Math.ceil(totalItems / itemsPerPage))"
+          @page-changed="pageChanged"
+        />
+        <ChangeView @change="viewChanged" />
+      </div>
       <List :items="items" />
     </div>
   </div>
@@ -24,32 +38,76 @@ export default {
   },
   data () {
     return {
-      count: 0,
       items: [],
       itemsPerPage: 20,
-      totalItems: 1
+      page: 1,
+      totalItems: 1,
+      municipality: 'Todas',
+      line: 'Todas',
+      municipalities: [],
+      lines: []
     }
   },
   mounted () {
-    console.log('items', this.items)
-    try {
-      getMetroLines({}).then(({ list, total }) => {
-        // // console.log('response', response.result.records)
-        // console.log('items', this.items)
+    this.getItems()
+    this.getAllComunas()
+  },
+  methods: {
+    pageChanged (pageNum) {
+      this.page = pageNum
+      this.getItems()
+    },
+    viewChanged (view) {
+      this.itemsPerPage = view.value
+      this.getItems()
+    },
+    municipalityChanged (value) {
+      this.municipality = value
+      this.getItems()
+    },
+    lineChanged (value) {
+      this.municipality = value
+      this.getItems()
+    },
+    getItems () {
+      getMetroLines({
+        limit: this.itemsPerPage === 0 ? null : this.itemsPerPage,
+        offset: this.itemsPerPage === 0 ? null : this.itemsPerPage * (this.page - 1),
+        municipality: this.municipality === 'Todas' ? null : this.municipality,
+        line: this.line === 'Todas' ? null : this.line
+      }).then(({ list, total }) => {
         this.items = list
         this.totalItems = total
         console.log('items', this.items)
       }).catch((error) => {
         console.log('error', error)
       })
-    } catch (error) {
-      console.log('error', error)
-    }
-  },
-  methods: {
-    pageChanged (pageNum) {
-      console.log('pageChanged', pageNum)
+    },
+    getAllComunas () {
+      getMetroLines({ limit: null, offset: null }).then(({ list }) => {
+        const municipalitiesTemp = list.map(item => item.COMUNA)
+        this.municipalities = new Set(municipalitiesTemp)
+        const linesTemp = list.map(item => item.CODIGO)
+        this.lines = new Set(linesTemp)
+      }).catch((error) => {
+        console.log('error', error)
+      })
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.bar {
+  padding-top: 30px;
+  display: flex;
+  // justify-content: space-between;
+  align-items: end;
+  margin-bottom: 20px;
+}
+
+.pagination {
+  margin-left: auto;
+  margin-right: 16px;
+}
+</style>

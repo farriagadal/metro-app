@@ -33,6 +33,11 @@ export default {
   .pagination {
     list-style-type: none;
     display: flex;
+    margin: 0;
+    margin-bottom: -2px;
+  }
+  ul {
+    padding-left: 0;
   }
   li {
     margin: 0 4px;
