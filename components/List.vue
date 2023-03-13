@@ -5,6 +5,9 @@
       :key="index"
       :item="item"
     />
+    <p v-if="items.length === 0">
+      No hay estaciones que coincidan con tu búsqueda
+    </p>
   </div>
 </template>
 
@@ -26,5 +29,7 @@ export default {
   grid-template-columns: 1fr;
   grid-gap: 20px;
   padding-bottom: 100px;
+
+  p {}
 }
 </style>

@@ -1,12 +1,11 @@
 <template>
   <div class="wrapper">
     <label>{{ name }}:</label>
-    <button class="toggle-btn" @click="toggle" :class="{ active: show }">
+    <button class="toggle-btn" :class="{ active: show }" @click="toggle">
       {{ selected }}
-
       <img src="@/assets/images/arrow-down.svg">
     </button>
-    <div v-if="show" class="dropdown">
+    <div v-if="show" v-click-outside="$event => show = false" class="dropdown">
       <button
         v-for="(option, index) in options"
         :key="index"
@@ -19,8 +18,13 @@
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
+
 export default {
   name: 'FilterSelect',
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   props: {
     selected: {
       // type string & null

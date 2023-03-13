@@ -41,10 +41,16 @@ export default {
     }
   },
 
+  loading: {
+    color: '#3168ba',
+    height: '5px'
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/axios-ssr.js',
-    { src: '@/plugins/vue-paginate.js', mode: 'client' }
+    { src: '@/plugins/vue-paginate.js', mode: 'client' },
+    { src: '~/plugins/v-click-outside.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

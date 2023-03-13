@@ -24,6 +24,7 @@
       </div>
       <List :items="items" />
     </div>
+    <AppFooter />
   </div>
 </template>
 
@@ -66,10 +67,13 @@ export default {
       this.getItems()
     },
     lineChanged (value) {
-      this.municipality = value
+      this.line = value
       this.getItems()
     },
     getItems () {
+      this.$nextTick(() => {
+        this.$nuxt.$loading.start()
+      })
       getMetroLines({
         limit: this.itemsPerPage === 0 ? null : this.itemsPerPage,
         offset: this.itemsPerPage === 0 ? null : this.itemsPerPage * (this.page - 1),
@@ -78,10 +82,13 @@ export default {
       }).then(({ list, total }) => {
         this.items = list
         this.totalItems = total
-        console.log('items', this.items)
+        this.$nuxt.$loading.finish()
       }).catch((error) => {
-        console.log('error', error)
+        console.error(error)
       })
+        .finally(() => {
+          this.$nuxt.$loading.finish()
+        })
     },
     getAllComunas () {
       getMetroLines({ limit: null, offset: null }).then(({ list }) => {
@@ -90,7 +97,7 @@ export default {
         const linesTemp = list.map(item => item.CODIGO)
         this.lines = new Set(linesTemp)
       }).catch((error) => {
-        console.log('error', error)
+        console.error(error)
       })
     }
   }

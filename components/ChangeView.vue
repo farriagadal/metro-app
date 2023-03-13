@@ -3,7 +3,7 @@
     <button class="toggle-btn" @click="toggle">
       <img src="@/assets/images/views-icon.svg">
     </button>
-    <div v-if="show" class="dropdown">
+    <div v-if="show" v-click-outside="$event => show = false" class="dropdown">
       <button
         v-for="view in views"
         :key="view.name"
@@ -16,8 +16,13 @@
 </template>
 
 <script>
+import vClickOutside from 'v-click-outside'
+
 export default {
   name: 'ChangeView',
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   data () {
     return {
       show: false,
