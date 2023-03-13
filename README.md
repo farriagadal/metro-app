@@ -4,7 +4,7 @@ Prueba técnica en NuxtJS
 
 Demo: [https://metro-app-psi.vercel.app/](https://metro-app-psi.vercel.app/)
 
-* En el caso de presentar errores de cors, se recomienda utilizar la extension de chrome Demo: ["ALLOW CORS"](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en)
+* En el caso de presentar errores de cors, se recomienda utilizar la extensión de chrome: ["ALLOW CORS"](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en)
 
 
 ## Dependencias
