@@ -1,6 +1,8 @@
 <template>
-  <div class="list">
-    <img src="@/assets/images/views-icon.svg">
+  <div class="wrapper">
+    <button>
+      <img src="@/assets/images/views-icon.svg">
+    </button>
   </div>
 </template>
 
@@ -11,6 +13,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list {
+.wrapper {
 }
 </style>

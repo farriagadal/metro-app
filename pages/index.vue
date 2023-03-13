@@ -2,9 +2,12 @@
   <div>
     <Navbar />
     <div class="container">
-      <h1>Lista de items</h1>
-      <FiltersBar />
-      <ChangeView />
+      <!-- <FiltersBar />
+      <ChangeView /> -->
+      <Pagination
+        :total-pages="parseInt(Math.ceil(totalItems / itemsPerPage))"
+        @page-changed="pageChanged"
+      />
       <List :items="items" />
     </div>
   </div>
@@ -12,28 +15,40 @@
 
 <script>
 import { getMetroLines } from '@/services/metro.service.js'
+import Pagination from '@/components/Pagination.vue'
 
 export default {
   name: 'IndexPage',
+  components: {
+    Pagination
+  },
   data () {
     return {
       count: 0,
-      items: []
+      items: [],
+      itemsPerPage: 20,
+      totalItems: 1
     }
   },
   mounted () {
     console.log('items', this.items)
     try {
-      getMetroLines().then((response) => {
+      getMetroLines({}).then(({ list, total }) => {
         // // console.log('response', response.result.records)
         // console.log('items', this.items)
-        this.items = response.result.records
+        this.items = list
+        this.totalItems = total
         console.log('items', this.items)
       }).catch((error) => {
         console.log('error', error)
       })
     } catch (error) {
       console.log('error', error)
+    }
+  },
+  methods: {
+    pageChanged (pageNum) {
+      console.log('pageChanged', pageNum)
     }
   }
 }
