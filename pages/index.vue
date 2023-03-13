@@ -1,16 +1,11 @@
 <template>
   <div>
-    <h1>Lista de items</h1>
-    <FiltersBar />
-    <ul>
-      <li v-for="(item, index) in items" :key="index">
-        {{ item.CODIGO }}
-      </li>
-    </ul>
-    <button @click="count++">
-      Add 1
-    </button>
-    {{ count }}
+    <Navbar />
+    <div class="container">
+      <h1>Lista de items</h1>
+      <FiltersBar />
+      <List :items="items" />
+    </div>
   </div>
 </template>
 

@@ -1,22 +1,8 @@
 <template>
   <nav>
-    <ul>
-      <li>
-        <nuxt-link to="/">
-          Home
-        </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/about">
-          About
-        </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/contact">
-          Contact
-        </nuxt-link>
-      </li>
-    </ul>
+    <div class="container">
+      <img src="~/assets/images/logo.svg" alt="logo">
+    </div>
   </nav>
 </template>
 
@@ -28,10 +14,10 @@ export default {
 
 <style lang="scss">
 nav {
-  background-color: #888;
-  padding: 20px 0;
-  ul {
-    margin: 0;
+  background-color: #fff;
+  box-shadow: 0px 4px 30px rgba(32, 32, 32, 0.07);
+  img {
+    width: 140px;
   }
 }
 </style>
