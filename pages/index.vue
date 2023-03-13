@@ -4,6 +4,7 @@
     <div class="container">
       <h1>Lista de items</h1>
       <FiltersBar />
+      <ChangeView />
       <List :items="items" />
     </div>
   </div>
