@@ -27,12 +27,19 @@ export default {
 
   buildModules: [
     '@nuxtjs/style-resources',
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/google-fonts'
   ],
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/styles.scss'
   ],
+
+  googleFonts: {
+    families: {
+      Oxygen: true
+    }
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
