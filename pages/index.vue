@@ -20,7 +20,7 @@
           :total-pages="parseInt(Math.ceil(totalItems / itemsPerPage))"
           @page-changed="pageChanged"
         />
-        <ChangeView @change="viewChanged" />
+        <ChangeView class="change-view" :selected="itemsPerPage" @change="viewChanged" />
       </div>
       <List :items="items" />
     </div>
@@ -111,10 +111,27 @@ export default {
   // justify-content: space-between;
   align-items: end;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    display: grid;
+    row-gap: 10px;
+  }
 }
 
 .pagination {
   margin-left: auto;
   margin-right: 16px;
+
+  @media (max-width: 768px) {
+    margin: 0;
+    margin-top: 30px;
+  }
+}
+
+.change-view {
+  @media (max-width: 768px) {
+    position: absolute;
+    right: 20px;
+  }
 }
 </style>

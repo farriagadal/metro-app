@@ -8,6 +8,7 @@
         v-for="view in views"
         :key="view.name"
         @click="$emit('change', view)"
+        :class="{ active: view.value === selected }"
       >
         {{ view.name }}
       </button>
@@ -22,6 +23,12 @@ export default {
   name: 'ChangeView',
   directives: {
     clickOutside: vClickOutside.directive
+  },
+  props: {
+    selected: {
+      type: Number,
+      default: 20
+    }
   },
   data () {
     return {
@@ -86,8 +93,11 @@ export default {
       padding: 6px 13px;
       text-align: left;
       &:hover {
-        filter: brightness(0.9);
         background: #ddd;
+      }
+
+      &.active {
+        background: #ccc;
       }
     }
   }

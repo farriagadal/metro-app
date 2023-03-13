@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" @click="showModal = true">
     <h3>Estación "{{ item['NOMBRE FANTASIA'] }}""</h3>
     <div class="grid">
       <p class="label">
@@ -15,6 +15,7 @@
       </p>
       <p>{{ item['CODIGO'] }}</p>
     </div>
+    <StationModal v-if="showModal" :item="item" @close=" showModal = false" />
   </div>
 </template>
 
@@ -26,6 +27,11 @@ export default {
       type: Object,
       default: () => {}
     }
+  },
+  data () {
+    return {
+      showModal: false
+    }
   }
 }
 </script>
@@ -36,6 +42,13 @@ export default {
   box-shadow: 0px 4px 30px rgba(32, 32, 32, 0.07);
   padding: 20px;
   border-radius: 8px;
+  cursor: pointer;
+  border: transparent solid 1px;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #3168ba;
+  }
 
   .grid {
     display: grid;
