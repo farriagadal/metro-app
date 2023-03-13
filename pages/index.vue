@@ -127,11 +127,4 @@ export default {
     margin-top: 30px;
   }
 }
-
-.change-view {
-  @media (max-width: 768px) {
-    position: absolute;
-    right: 20px;
-  }
-}
 </style>

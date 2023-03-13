@@ -59,6 +59,12 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   position: relative;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    right: 20px;
+  }
+
   .toggle-btn {
     margin: 0;
     background-color: #fff;
